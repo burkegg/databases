@@ -1,6 +1,8 @@
-CREATE DATABASE chatterz;
+DROP DATABASE chat;
 
-USE chatterz;
+CREATE DATABASE chat;
+
+USE chat;
 
 CREATE TABLE Users (
   id int NOT NULL,

@@ -1,24 +1,30 @@
 var db = require('../db');
+// var mysql = require('mysql');
+
 
 module.exports = {
   messages: {
     get: function (req, cb) {
       
       
-      //take the req
-      //and do something with it to get what info is?
-      //I am told, these are sequel queries
+      //interpret the request
+      //query 1 particular message? or query all messages?
+      //call the correct query. example:
+
+    
       
-      callDBQuery(info, (err, success) => {
-        //ask the DB for the info...
+      db.connection.query('SELECT * FROM messages', function queried (err, rows, fields) {
         if (err) {
-          //db failed you...or perhaps you failed the db.
-          cb(err, null);
+          cb(err);
         } else {
-          cb(null, success);
+          console.log('fields =============>', fields);
+          console.log('The solution is models: ', rows);
+          cb(null, rows);
         }
+       
+       
       });
-      
+        
       
       
     }, // a function which produces all the messages
