@@ -2,30 +2,52 @@ var db = require('../db');
 
 module.exports = {
   messages: {
+    // get all messages
     get: function (cb) {
-      
-      
-      connection.query('SELECT * FROM messages', function queried (err, rows, fields) {
-        if (err) {
-          cb(err);
-        } else {
-          console.log('====================> rows: ', rows);
-          cb(null, rows);
-        }
+      // userid, message, roomname, ???
+      var qStr = 'select messages.id, messages.text, messages.roomname from messages \
+                  left outer join users on (messages.userid = user.id) \
+                  order by messages.id desc';
+      db.query(qStr, function queried (error, result) {
+        cb(result);
       });
-    // back yo db
+      //db.query('SELECT * FROM messages', function queried (err, result) {
+      // if (err) {
+      //   cb(err);
+      // } else {
+      //   console.log('====================> rows: ', rows);
+      //   cb(null, rows);
+      // }
+      // });
       
       
-    }, // a function which produces all the messages
-    post: function (req, cb) {
+    }, 
+    // create a message
+    post: function (params, cb) {
       // console.log('post is called:', req);
-    } // a function which can be used to insert a message into the database
+      var qStr = '';
+      db.query(qStr, function messagePosted (error, result) {
+        cb(result);
+      });
+    } 
   },
 
   users: {
-    // Ditto as above.
-    get: function () {},
-    post: function () {}
+    // get all users
+    get: function (cb) {
+      var qStr = '';
+      db.query(qStr, function queried(error, result) {
+        cb(result);
+      });
+    },
+    // create a user
+    post: function (cb, params) {
+      // only needs a name
+      var qStr = 'insert into users ';
+      db.query(qStr, function userPosted(error, result) {
+        cb(result);
+      });
+    }
   }
 };
 
